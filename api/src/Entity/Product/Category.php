@@ -25,6 +25,7 @@ class Category
     #[ORM\Column]
     #[Assert\NotBlank]
     #[Assert\Length(max: 10)]
+    #[Assert\Unique()]
     private string $code = '';
 
     #[Gedmo\Timestampable(on: 'create')]

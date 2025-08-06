@@ -42,6 +42,7 @@ class Product
     private int $price = 0;
 
     #[ORM\ManyToMany(targetEntity: Category::class)]
+    #[Assert\Count(min:1)]
     private Collection $categories;
 
     #[Gedmo\Timestampable(on: 'create')]
