@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Uid\Uuid;
 
 #[AsEventListener()]
-class ProductSaveEventHandler
+class ProductDeleteEventHandler
 {
     public function __construct(
         readonly private LoggerInterface $auditLogger
