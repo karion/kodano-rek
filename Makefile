@@ -42,6 +42,9 @@ diff:
 cache-clear: ## Wyczyść cache Symfony
 	$(SYMFONY) cache:clear
 
+test: ## Wykonaj migracje Doctrine
+	$(EXEC) php bin/phpunit
+
 log: ## Podgląd logów PHP
 	$(COMPOSE) logs -f php
 
