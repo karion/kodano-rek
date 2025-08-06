@@ -36,6 +36,9 @@ yarn-install: ## Instaluj zależności Node.js
 migrate: ## Wykonaj migracje Doctrine
 	$(SYMFONY) doctrine:migrations:migrate
 
+diff
+	$(SYMFONY) doctrine:migrations:diff
+
 fixtures: ## Załaduj dane testowe
 	$(SYMFONY) doctrine:fixtures:load
 
