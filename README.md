@@ -4,9 +4,9 @@
 make build
 make up
 make migrate
+```
 
-
-#Services:
+# Services:
 
 ## Docs with spider
 https://localhost/docs#/
