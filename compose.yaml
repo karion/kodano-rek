@@ -3,6 +3,7 @@ services:
     image: ${IMAGES_PREFIX:-}app-php
     depends_on:
       - database
+      - mailhog
     restart: unless-stopped
     environment:
       PWA_UPSTREAM: pwa:3000
@@ -59,6 +60,12 @@ services:
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"    # Web UI
+      - "1025:1025"    # SMTP
 
 volumes:
   caddy_data:

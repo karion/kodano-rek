@@ -36,11 +36,8 @@ yarn-install: ## Instaluj zależności Node.js
 migrate: ## Wykonaj migracje Doctrine
 	$(SYMFONY) doctrine:migrations:migrate
 
-diff
+diff:
 	$(SYMFONY) doctrine:migrations:diff
-
-fixtures: ## Załaduj dane testowe
-	$(SYMFONY) doctrine:fixtures:load
 
 cache-clear: ## Wyczyść cache Symfony
 	$(SYMFONY) cache:clear
@@ -51,5 +48,5 @@ log: ## Podgląd logów PHP
 status: ## Pokaż status kontenerów
 	$(COMPOSE) ps
 
-reset: down build up composer-install migrate fixtures ## Całkowity reset środowiska dev
+reset: down build up composer-install migrate 
 
