@@ -3,7 +3,7 @@ CONTAINER_PHP=php
 CONTAINER_NODE=pwa
 COMPOSE=docker compose
 EXEC=$(COMPOSE) exec
-SYMFONY=$(EXEC) php bin/console
+SYMFONY=$(EXEC) $(CONTAINER_PHP) bin/console
 
 .DEFAULT_GOAL := help
 
@@ -25,13 +25,13 @@ build: ## Zbuduj kontenery
 restart: down up ## Restart kontenerów
 
 bash: ## Wejdź do kontenera PHP
-	$(EXEC) php bash
+	$(EXEC) $(CONTAINER_PHP) bash
 
 composer-install: ## Instaluj zależności PHP
-	$(EXEC) php composer install
+	$(EXEC) $(CONTAINER_PHP) composer install
 
 yarn-install: ## Instaluj zależności Node.js
-	$(EXEC) client yarn install
+	$(EXEC) $(CONTAINER_NODE) yarn install
 
 migrate: ## Wykonaj migracje Doctrine
 	$(SYMFONY) doctrine:migrations:migrate
@@ -42,8 +42,11 @@ diff:
 cache-clear: ## Wyczyść cache Symfony
 	$(SYMFONY) cache:clear
 
-test: ## Wykonaj migracje Doctrine
-	$(EXEC) php bin/phpunit
+test: ## Wykonaj testy
+	$(EXEC) $(CONTAINER_PHP) php bin/phpunit
+
+csfixer: 
+	$(EXEC) $(CONTAINER_PHP) php vendor/bin/php-cs-fixer fix
 
 log: ## Podgląd logów PHP
 	$(COMPOSE) logs -f php
