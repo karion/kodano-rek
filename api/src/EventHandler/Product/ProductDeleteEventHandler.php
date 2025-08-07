@@ -13,12 +13,11 @@ use Symfony\Component\Uid\Uuid;
 class ProductDeleteEventHandler
 {
     public function __construct(
-        readonly private LoggerInterface $auditLogger
-    )
-    {
+        private readonly LoggerInterface $auditLogger,
+    ) {
     }
 
-    public function __invoke(ProductDeletedEvent $event)
+    public function __invoke(ProductDeletedEvent $event): void
     {
         $this->saveLog($event->getId());
     }

@@ -10,9 +10,8 @@ use Symfony\Contracts\EventDispatcher\Event;
 class ProductDeletedEvent extends Event
 {
     public function __construct(
-        readonly private Uuid $id
-    )
-    {
+        private readonly Uuid $id,
+    ) {
     }
 
     public function getId(): Uuid

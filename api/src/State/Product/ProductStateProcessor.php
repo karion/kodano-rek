@@ -20,13 +20,11 @@ class ProductStateProcessor implements ProcessorInterface
         #[Autowire(service: 'api_platform.doctrine.orm.state.remove_processor')]
         private ProcessorInterface $removeProcessor,
         private readonly EventDispatcherInterface $dispatcher,
-    )
-    {
+    ) {
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
-
         if ($operation instanceof DeleteOperationInterface) {
             $id = $data->getId();
             $result = $this->removeProcessor->process($data, $operation, $uriVariables, $context);
@@ -34,11 +32,11 @@ class ProductStateProcessor implements ProcessorInterface
             $this->dispatcher->dispatch(new ProductDeletedEvent($id));
 
             return $result;
-        } 
+        }
 
-        $isNew = $data->getId() === null;
+        $isNew = null === $data->getId();
         $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
-        
+
         $this->dispatcher->dispatch(new ProductSaveEvent($data, $isNew));
 
         return $result;

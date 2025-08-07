@@ -6,14 +6,14 @@ namespace App\Entity\Product;
 
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
-use Symfony\Component\Uid\Uuid;
-
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(mercure: true)]
 #[ORM\Entity]
+#[UniqueEntity('code')]
 class Category
 {
     #[ORM\Id]
@@ -25,7 +25,6 @@ class Category
     #[ORM\Column]
     #[Assert\NotBlank]
     #[Assert\Length(max: 10)]
-    #[Assert\Unique()]
     private string $code = '';
 
     #[Gedmo\Timestampable(on: 'create')]
@@ -49,6 +48,7 @@ class Category
     public function setCode(string $code): self
     {
         $this->code = $code;
+
         return $this;
     }
 

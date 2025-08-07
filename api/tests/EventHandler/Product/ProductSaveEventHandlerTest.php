@@ -15,7 +15,6 @@ use Symfony\Component\Uid\Uuid;
 
 class ProductSaveEventHandlerTest extends TestCase
 {
-
     public function testItLogsAndSendsMailForNewProduct(): void
     {
         $product = $this->createMock(Product::class);
@@ -41,7 +40,7 @@ class ProductSaveEventHandlerTest extends TestCase
         $mailer->expects($this->once())
             ->method('send')
             ->with($this->callback(function (Email $email) use ($productId) {
-                return $email->getSubject() === 'New product: Test Product'
+                return 'New product: Test Product' === $email->getSubject()
                     && str_contains($email->getHtmlBody(), $productId->toString());
             }));
 

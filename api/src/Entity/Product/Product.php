@@ -10,13 +10,13 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\State\Product\ProductStateProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\State\Product\ProductStateProcessor;
 
 #[ApiResource(mercure: true)]
 #[Post(processor: ProductStateProcessor::class)]
@@ -42,7 +42,7 @@ class Product
     private int $price = 0;
 
     #[ORM\ManyToMany(targetEntity: Category::class)]
-    #[Assert\Count(min:1)]
+    #[Assert\Count(min: 1)]
     private Collection $categories;
 
     #[Gedmo\Timestampable(on: 'create')]
@@ -71,6 +71,7 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -82,6 +83,7 @@ class Product
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
         return $this;
     }
 

@@ -15,13 +15,12 @@ use Symfony\Component\Mime\Email;
 class ProductSaveEventHandler
 {
     public function __construct(
-        readonly private LoggerInterface $auditLogger,
-        readonly private MailerInterface $mailer
-    )
-    {
+        private readonly LoggerInterface $auditLogger,
+        private readonly MailerInterface $mailer,
+    ) {
     }
 
-    public function __invoke(ProductSaveEvent $event)
+    public function __invoke(ProductSaveEvent $event): void
     {
         $this->saveLog($event->getProduct(), $event->isNew());
 
@@ -42,7 +41,7 @@ class ProductSaveEventHandler
             $message,
             [
                 'id' => $product->getId()->toString(),
-                'name' => $product->getName()
+                'name' => $product->getName(),
             ]
         );
     }
@@ -52,7 +51,7 @@ class ProductSaveEventHandler
         $email = (new Email())
             ->from('noreply@kodano.pl')
             ->to('supervisor@kodano.pl')
-            
+
             ->subject(sprintf('New product: %s', $product->getName()))
             ->html(sprintf('<h1>New product: %s</h1><p>Link to product %s</p>', $product->getName(), $product->getId()->toString()));
 
